@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quote of the day</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="Quote-box">
+      <h2>Quote of the day</h2>
+      <blockquote id="quote">Loading...</blockquote>
+      <span id="author">Loading....</span>
+      <!-- <p>
+        The pessimist sees difficulty in every opportunity, The optimist sees
+        the opportinity in every difficulty
+      </p> -->
+      <div>
+        <button id="btn1">New quote</button>
+        <button id="tweet">Tweet</button>
+      </div>
+    </div>
+    <script>
+      const quote = document.getElementById("quote");
+      const author = document.getElementById("author");
+      const btn1 = document.getElementById("btn1");
+      const tweet = document.getElementById("tweet");
+
+      const api_url = "https://api.quotable.io/random";
+      async function getquote(url) {
+        const response = await fetch(url);
+        var data = await response.json();
+        console.log(data);
+        quote.innerHTML = data.content;
+        author.innerHTML = data.author;
+      }
+      getquote(api_url);
+
+      btn1.addEventListener("click", function () {
+        getquote(api_url);
+      });
+
+      tweet.addEventListener('click', function(){
+         window.open(
+          "https://twitter.com/intent/tweet?text=" +  quote.innerHTML + "-----by " + author.innerHTML,
+          "Tweet Window",
+          "width=600, height=300"
+        );
+      }) 
+       
+      
+    </script>
+  </body>
+</html>
